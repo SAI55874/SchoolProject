@@ -1,0 +1,98 @@
+
+  <div >
+  <div class=""  >
+                     
+      
+      <div class="  sidebar" >
+    
+          <a [routerLink]="['']" class="nav-link text-dark px-5 text-decoration-none" aria-current="page" style="font-size: larger;" >
+            <i class="material-symbols-outlined" style="font-size: large;">
+              home
+            </i>
+          Home
+          </a>
+      
+      
+          <a [routerLink]="['dashboard']" class="nav-link text-dark px-5 text-decoration-none" style="font-size: larger;">
+            <span class="material-symbols-outlined" style="vertical-align: auto;font-size: large;">
+              view_timeline
+              </span>
+            Dashboard
+          </a>
+      
+      
+          <a [routerLink]="['teacher']" *ngIf="!isActive" class="nav-link text-dark px-5 text-decoration-none" style="font-size: larger;">
+            <span class="material-symbols-outlined" style="vertical-align: auto;font-size: large;">
+              group_add
+              </span>
+            Teachers
+          </a>
+        
+      
+          <a [routerLink]="['class']" *ngIf="!isActive" class="nav-link text-dark px-5 text-decoration-none" style="font-size: larger;">
+            <span class="material-symbols-outlined" style="vertical-align: auto;font-size: large;">
+              groups_2
+              </span>
+            Classes
+          </a>
+     
+      
+          <a [routerLink]="['student']" *ngIf="!isActive" class="nav-link text-dark px-5 text-decoration-none" style="font-size: larger;">
+            <span class="material-symbols-outlined" style="vertical-align: auto;font-size: large;">
+              diversity_3
+              </span>
+            Students
+          </a>
+          <!-- <hr > -->
+    </div>
+     
+      
+    </div>
+  <div class="mainScreen">
+    <nav class="navbar navbar-expand-lg " >
+
+      <h1 class="h1 text-light px-5" >School Application</h1>
+     
+      <div class=" " id="navbarNav" >
+      
+        <ul class="navbar-nav" >
+          <li class="nav-item " >
+            
+            <a class="nav-link " href="#" [routerLink]="['login']" *ngIf="isActive" id="login">
+              <span class="material-symbols-outlined" style="vertical-align: bottom;font-size: larger;">
+                login
+                </span>
+              Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#" [routerLink]="['register']" *ngIf="isActive" id="register">
+              <span class="material-symbols-outlined" style="vertical-align: bottom;font-size: larger;">
+                person_add
+                </span>
+              Sign Up</a>
+          </li>
+          <li class="nav-item" >
+            
+            <a class="nav-lin" href="#" (click)="logout()" *ngIf="!isActive" >
+              <span class="material-symbols-outlined" style="vertical-align: bottom;font-size: larger;">
+                logout
+                </span>
+              Logout</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+   <!-- <div class="" style="background-color: rgb(97, 99, 100);border-radius: 0%;width: 100% ;position: sticky; top: 0;">
+    <h1 class="h1 text-light px-5">School Application</h1>
+    <div class="d-flex flex-row-reverse">
+      <a class="nav-link text-light" href="#" [routerLink]="['login']" *ngIf="isActive" id="login">Login</a>
+      <a class="nav-link text-light" href="#" [routerLink]="['register']" *ngIf="isActive" id="register">Sign Up</a>
+      <a class="nav-link text-light" href="#" (click)="logout()" *ngIf="!isActive" >logout</a>
+    </div>
+  </div>  -->
+    <!-- Routing place -->
+    <!-- <h1>Welcome</h1> -->
+    <router-outlet></router-outlet>
+  </div>
+  </div>

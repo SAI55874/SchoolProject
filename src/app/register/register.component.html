@@ -1,0 +1,49 @@
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">
+                    Register
+                </h3>
+            </div>
+            <div class="card-body">
+                <form class="form" (submit)="registerUser()" [formGroup]="registerForm">
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input [(ngModel)]="registerUserData.name" name="name" type="text" class="form-control h3" formControlName="name" required>
+                        <div *ngIf="registerForm.controls['name'].hasError('required') && registerForm.controls['name'].touched" class="alert alert-danger">
+                            Name is mandatory
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input [(ngModel)]="registerUserData.password" name="password" type="password" class="form-control h3" formControlName="password" required>
+                        <div *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched" class="alert alert-danger">
+                            Password is mandatory
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input [(ngModel)]="registerUserData.email" name="email" type="text" class="form-control h3" formControlName="email" required>
+                        <div *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched" class="alert alert-danger">
+                            Email is mandatory
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Select role</label>
+                        <select [(ngModel)]="registerUserData.role" name="role" class="form-control" formControlName="role" required>
+                            <option value="" class="h3">Select role</option>
+                            <option value="USER" class="h3">USER</option>
+                            <option value="ADMIN" class="h3">ADMIN</option>
+                        </select>
+                        <div *ngIf="registerForm.controls['role'].hasError('required') && registerForm.controls['role'].touched" class="alert alert-danger">
+                            Select a role
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg"  style="float: right;" [disabled]="!registerForm.valid">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

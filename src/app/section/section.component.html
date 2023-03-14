@@ -1,0 +1,99 @@
+
+
+
+<div style="margin: auto;width: 80%;">
+
+    <table class="table table-striped my-5" style="border: 1px solid;" >
+        <thead>
+            <tr>
+                <th scope="col">Class ID</th>
+                <!-- <th scope="col">Students</th> -->
+                <th scope="col">Total Seats</th>
+                <th scope="col">Total Students</th>
+                <th scope="col">Teacher</th>  
+                <th scope="col">Actions</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of sectionData">
+                <td>{{row.sectionId}}</td>
+                <td>45</td>
+                <!-- <td>{{row.sectionId}}</td> -->
+                <td>{{row.sectionStrength}}</td>
+               
+                <td>{{row.sectionTeacher.teacherName}}</td>
+                <td>
+                    <button  (click)="onEdit(row)" class="btn btn-info btn-lg" type="button"  data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                      edit
+                      </span> Edit</button>
+                    <!-- <button (click)="deleteTeacher(row)" class="btn btn-danger btn-lg" style="margin: 0 10px;">Delete</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+  
+    <!-- <div class="card mx-auto" style="width: 18rem;" *ngFor="let row of sectionData">
+        <div class="card-header">
+          <h5 class="card-title">Class : {{row.sectionId}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Name: {{ teacherName }}</li>
+          <li class="list-group-item">Subject: {{ subject }}</li>
+          <li class="list-group-item">Experience: {{ experience }}</li>
+          <li class="list-group-item">Gender: {{ gender }}</li>
+          <li class="list-group-item">Email: {{ email }}</li>
+          <li class="list-group-item">Category: {{ category }}</li>
+        </ul>
+      </div> -->
+  </div>
+     <!-- Modal -->
+     <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <form [formGroup]="sectionForm">
+      <div class="modal-dialog" role="document">      
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel">Edit Class data</h2>
+            <button type="button" class="close float-right btn-lg"  data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <!-- <div class="form-group">
+                <label for="sectionStrength">Class strength</label>
+                <input type="number" class="form-control" id="sectionStrength" formControlName="sectionStrength">
+                <div *ngIf="sectionForm.controls['sectionStrength'].hasError('required') && sectionForm.controls['sectionStrength'].touched" class="alert alert-danger">
+                  Enter strength of class
+              </div>
+              </div> -->
+              <div class="form-group" >
+                <label for="sectionTeacher" > Select Teacher</label>
+                <select class="form-control" id="sectionTeacher" formControlName="sectionTeacher" >
+                  
+                  <option class="h2" *ngFor="let option of teachData" [value]="option | json">{{ option.teacherName }}</option>
+                </select>
+                <div *ngIf="sectionForm.controls['sectionTeacher'].hasError('required') && sectionForm.controls['sectionTeacher'].touched" class="alert alert-danger">
+                Select Class teacher
+              </div>
+              </div>
+              <!-- <select>
+                <option *ngFor="let option of teachData" [value]="option.teacherName">{{ option.teacherName }}</option>
+              </select> -->
+              
+             
+              <div class="modal-footer">
+                <button type="button" id="cancel" class="btn btn-secondary btn-lg" data-dismiss="modal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                  close
+                  </span>Close</button>
+                <button type="button" class="btn btn-primary btn-lg" (click)="editSection()" [disabled]="!sectionForm.valid"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;" >
+                  upload
+                  </span>Update</button>
+              </div>
+             
+           
+          </div>
+          
+        </div>
+      </div>
+    </form>
+    </div>

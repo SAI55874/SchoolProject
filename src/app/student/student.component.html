@@ -1,0 +1,170 @@
+<div style="margin: auto;width: 80%" >
+    
+  <div class="row "  >
+    <div class="col p-4 ">
+      <span >Students of  Class  : </span>
+      <select [(ngModel)]="selectedSectionId" class="px-3">
+        <option *ngFor="let section of secData" [value]="section.sectionId">
+          {{ section.sectionId }}
+        </option>
+      </select>
+    </div>
+    <div class="col">
+      <div class="m-3" style="float: right;">
+        <!-- Button trigger modal -->
+        <button type="button" (click)="clickAddStudent()"  class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+          person_add
+          </span>
+          Add Student
+        </button>
+      </div>
+    </div>
+    <hr class="mb-0">
+  </div> 
+  <!-- <div style="overflow-y: auto;">
+        <table class="table table-striped " style="border: 1px solid;width: 100%;" >
+            <thead>
+                <tr>
+                    <th scope="col"> ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Marks</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of studentData | studentsFilter: selectedSectionId">
+                    <td>{{row.studentId}}</td>
+                    <td>{{row.studentName}}</td>
+                    <td>{{row.studentOfSection.sectionId}}</td>
+                    <td>{{row.age}} years</td>
+                    <td>{{row.marks}}</td>
+                    <td>{{row.gender}}</td>
+                    <td>{{row.email}}</td>
+                    <td>
+                        <button  (click)="onEdit(row)" class="btn btn-info btn-lg" type="button"  data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                          edit
+                          </span> Edit</button>
+                        <button (click)="deleteStudent(row)" class="btn btn-danger btn-lg" style="margin: 0 10px;"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                          delete
+                          </span> Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div> -->
+     
+      <div class="container mt-2">
+      <div class= "row" >
+        <div class="col-md-4 p-2" *ngFor="let row of studentData | studentsFilter: selectedSectionId">
+        <div class=" flip-card rounded p-3">
+          <div class="card-body flip-card-inner ">
+            <div class="flip-card-front row">
+            <h3>Student Id : <Strong>{{row.studentId}}</Strong></h3>
+            <h3>Name : <Strong>{{row.studentName}}</Strong></h3> <hr>
+            <h3 class="col-md-6">Class: <strong>{{row.studentOfSection.sectionId}}</strong></h3>
+            <h3 class="col-md-6">Age : <strong>{{row.age}} years</strong></h3>
+            <h3 class="col-md-6">Gender:<strong>{{row.gender}}</strong></h3>
+                    <h3 class="col-md-6">Percent : <Strong>{{row.marks}}% </Strong></h3>
+                    <h3>Email : <Strong>{{row.email}}</Strong></h3>
+           
+            </div>
+            <div class="flip-card-back row">
+              <img src="../../assets/Images/profile.webp" alt="" height="150px" width="auto">
+              <button  (click)="onEdit(row)" class="btn btn-info btn-lg col" type="button"  data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                edit
+                </span> Edit</button>
+              <button (click)="deleteStudent(row)" class="btn btn-danger btn-lg col" style="margin: 0 10px;"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                delete
+                </span> Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div> 
+  <!-- Modal -->
+  <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="studentForm" (ngSubmit)="addStudent()" class="">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel"> Fill Student Details</h2>
+          <button type="button" class="close float-right btn-lg"  data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+            
+              <div class="form-group">
+                <label for="studentName">Student Name:</label>
+                <input type="text" class="form-control" id="studentName" formControlName="studentName">
+                <div *ngIf="studentForm.controls['studentName'].hasError('required') && studentForm.controls['studentName'].touched" class="alert alert-danger">
+                  Name is mandatory
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="studentOfSection">Class:</label>
+                <select class="form-control" id="studentOfSection" formControlName="studentOfSection" >
+                  <option class="h2" *ngFor="let option of secData" [value]="option | json">{{ option.sectionId }}</option>
+                </select>
+                <div *ngIf="studentForm.controls['studentOfSection'].hasError('required') && studentForm.controls['studentOfSection'].touched" class="alert alert-danger">
+                  Select Class
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" formControlName="age">
+                <div *ngIf="studentForm.controls['age'].hasError('required') && studentForm.controls['age'].touched" class="alert alert-danger">
+                  Enter age
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="marks">Marks:</label>
+                <input type="number" class="form-control" id="marks" formControlName="marks">
+                <div *ngIf="studentForm.controls['marks'].hasError('required') && studentForm.controls['marks'].touched" class="alert alert-danger">
+                  Enter marks
+              </div>
+              </div>
+              <div>
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender" formControlName="gender">
+                <option value="" class="h2">Select Gender</option>
+                <option value="Male" class="h2">Male</option>
+                <option value="Female" class="h2">Female</option>
+              </select>
+              <div *ngIf="studentForm.controls['gender'].hasError('required') && studentForm.controls['gender'].touched" class="alert alert-danger">
+                Select Gender
+            </div>
+            </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <div *ngIf="studentForm.controls['email'].hasError('required') && studentForm.controls['email'].touched" class="alert alert-danger">
+                  Enter is mandatory
+              </div>
+              </div>
+             
+            
+            <div class="modal-footer">
+              <button type="button" id="cancel" class="btn btn-secondary btn-lg" data-dismiss="modal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                close
+                </span>Close</button>
+              <button type="button" class="btn btn-primary btn-lg" *ngIf="showAdd" (click)="addStudent()" [disabled]="!studentForm.valid"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                save
+                </span> Save</button>
+              <button type="button" class="btn btn-primary btn-lg" *ngIf="showUpdate" (click)="updateStudent()" [disabled]="!studentForm.valid"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                upload
+                </span>Update changes</button>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+  </div>
+</div>

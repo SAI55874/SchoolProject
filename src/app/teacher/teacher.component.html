@@ -1,0 +1,135 @@
+
+
+<div style="margin: auto;width: 80%" >
+ 
+
+<div class="m-3" style="float: right;">
+  <!-- Button trigger modal -->
+  <button type="button" (click)="clickAddTeacher()"  class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+    person_add
+    </span>
+    Add Teacher
+  </button>
+</div>
+   <div style="overflow-x: auto;width: 100%;">
+    <table class="table table-striped " style="border: 1px solid;width: 100%;" >
+        <thead>
+            <tr>
+                <th scope="col">Teacher ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Experience</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Email</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of teacherData">
+                <td>{{row.teacherId}}</td>
+                <td>{{row.teacherName}}</td>
+                <td>{{row.subject}}</td>
+                <td>{{row.expInYears}} years</td>
+                <td>{{row.gender}}</td>
+                <td>{{row.email}}</td>
+                <td>{{row.teachingCategory}}</td>
+                <td>
+                    <button  (click)="onEdit(row)" class="btn btn-info btn-lg" type="button"  data-toggle="modal" data-target="#exampleModal"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                      edit
+                      </span>Edit</button>
+                    <button (click)="deleteTeacher(row)" class="btn btn-danger btn-lg" style="margin: 0 10px;"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                      delete
+                      </span>Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+  
+  <!-- Modal -->
+  <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="teacherForm" (ngSubmit)="addTeacher()" class="">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel">Fill Teacher Details</h2>
+          <button type="button" class="close float-right btn-lg"  data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+            <div class="form-group">
+              <label for="teacherName">Teacher Name</label>
+              <input type="text" class="form-control" id="teacherName" formControlName="teacherName">
+              <div *ngIf="teacherForm.controls['teacherName'].hasError('required') && teacherForm.controls['teacherName'].touched" class="alert alert-danger">
+                Name is mandatory
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" class="form-control" id="subject" formControlName="subject">
+              <div *ngIf="teacherForm.controls['subject'].hasError('required') && teacherForm.controls['subject'].touched" class="alert alert-danger">
+                Enter a subject
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="expInYears">Experience</label>
+              <input type="number" class="form-control" id="expInYears" formControlName="expInYears">
+              <div *ngIf="teacherForm.controls['expInYears'].hasError('required') && teacherForm.controls['expInYears'].touched" class="alert alert-danger">
+                Enter Experience
+            </div>
+            </div>
+            <div class="form-group ">
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender" formControlName="gender">
+                <option value="" class="h2">Select Gender</option>
+                <option value="Male" class="h2">Male</option>
+                <option value="Female" class="h2">Female</option>
+              </select>
+              <div *ngIf="teacherForm.controls['gender'].hasError('required') && teacherForm.controls['gender'].touched" class="alert alert-danger">
+                Select gender
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" formControlName="email">
+              <div *ngIf="teacherForm.controls['email'].hasError('required') && teacherForm.controls['email'].touched" class="alert alert-danger">
+                Email is mandatory
+            </div>
+            <div *ngIf="teacherForm.controls['email'].hasError('email') && teacherForm.controls['email'].touched" class="alert alert-danger">
+              Email is not valid
+          </div>
+            </div>
+            <div class="form-group">
+              <label for="teachingCategory">Category</label>
+              <select class="form-control" id="teachingCategory" formControlName="teachingCategory">
+                <option value="" class="h2">Select TeachingCategory</option>
+                <option value="Primary" class="h2 ">Primary</option>
+                <option value="Secondary" class="h2">Secondary</option>
+                <option value="HigherSecondary" class="h2">HigherSecondary</option>
+              </select>
+              <div *ngIf="teacherForm.controls['teachingCategory'].hasError('required') && teacherForm.controls['teachingCategory'].touched" class="alert alert-danger">
+                Select a category
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="cancel" class="btn btn-secondary btn-lg" data-dismiss="modal" ><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                close
+                </span> Close</button>
+              <button type="button" class="btn btn-primary btn-lg" *ngIf="showAdd" (click)="addTeacher()" [disabled]="!teacherForm.valid"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+              save
+                </span> Save</button>
+              <button type="button" class="btn btn-primary btn-lg" *ngIf="showUpdate" (click)="updateTeacher()" [disabled]="!teacherForm.valid"><span class="material-symbols-outlined" style="font-size: large;vertical-align: bottom;">
+                upload
+                </span> Update changes</button>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+  </div>
+  </div>
